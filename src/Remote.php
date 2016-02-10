@@ -1,6 +1,7 @@
 <?php namespace Vultuk\HlrLookup;
 
 use GuzzleHttp\Client;
+use Vultuk\HlrLookup\Exceptions\InvalidApiKeyOrPasswordException;
 
 class Remote
 {
@@ -25,7 +26,7 @@ class Remote
             'msisdn' => $numbers,
         ]);
 
-        return json_decode($result->getBody(), true);
+        return $result;
     }
 
     protected function connect($type, $options = [])
@@ -40,7 +41,13 @@ class Remote
         $response = $client
             ->request('GET', $this->endpoint . $type . '/?' . $query);
 
-        return $response;
+        $result = json_decode($response->getBody(), true);
+
+        if (isset($result['ERR']) && $result['ERR'] === "Could not authenticate") {
+            throw new InvalidApiKeyOrPasswordException("Could not authenticate, Invalid API Key or Password.");
+        }
+
+        return $result;
     }
 
 }

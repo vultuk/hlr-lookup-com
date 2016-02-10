@@ -1,5 +1,6 @@
 <?php namespace Vultuk\HlrLookup;
 
+use Vultuk\HlrLookup\Exceptions\NumberIsNotValidException;
 use Vultuk\HlrLookup\Parsers\SingleNumberParse;
 
 class HlrLookup
@@ -8,10 +9,13 @@ class HlrLookup
 
     protected $password = null;
 
-    public function __construct($apiKey = null, $password = null)
+    protected $exceptionInvalid = false;
+
+    public function __construct($apiKey = null, $password = null, $exceptionInvalid = false)
     {
         $this->apiKey = $apiKey;
         $this->password = $password;
+        $this->exceptionInvalid = $exceptionInvalid;
     }
 
     public function hasCredit()
@@ -29,6 +33,9 @@ class HlrLookup
         // Parse the details into the correct class
         if (!is_array($items)) {
             $parsedResult = SingleNumberParse::parse($response);
+            if ($this->exceptionInvalid && !$parsedResult->isActive()) {
+                throw new NumberIsNotValidException('This number is not valid, ' . $parsedResult->errorText);
+            }
         }
 
         // Return the results

@@ -12,7 +12,7 @@ class HlrLookupTest extends PHPUnit_Framework_TestCase
 
     public function testNumber()
     {
-        $hlrLookup = new HlrLookup('', '');
+        $hlrLookup = new HlrLookup('asd', 'asd');
         $response = $hlrLookup->number('07949834768');
 
         var_dump($response->isActive());
