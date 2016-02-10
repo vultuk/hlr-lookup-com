@@ -1,0 +1,23 @@
+{
+  "name": "vultuk/hlr-lookup-com",
+  "description": "Accesses the hlrlookup.com api to perform checks on mobile numbers.",
+  "license": "MIT",
+  "keywords": ["nacho"],
+  "authors": [
+    {
+      "name": "Simon Skinner",
+      "email": "simon@sisk-ltd.co.uk"
+    }
+  ],
+  "require": {
+    "guzzlehttp/guzzle": "~5.3|~6.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "4.0.*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Vultuk\\HlrLookup\\": "src"
+    }
+  }
+}
