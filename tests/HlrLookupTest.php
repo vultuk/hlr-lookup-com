@@ -12,8 +12,8 @@ class HlrLookupTest extends PHPUnit_Framework_TestCase
 
     public function testNumber()
     {
-        $hlrLookup = new HlrLookup('7V7AdGLWLhJmsbQ4KK4cdwJYGn6kXJIU', 'Wvts231ct6D');
-        $response = $hlrLookup->number('447949834768');
+        $hlrLookup = new HlrLookup('', '');
+        $response = $hlrLookup->number('07949834768');
 
         var_dump($response->isActive());
     }

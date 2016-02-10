@@ -24,7 +24,7 @@ class HlrLookup
     {
         // Run the API call to Lookup the information
         $remote = new Remote($this->apiKey, $this->password);
-        $response = $remote->hlr($items);
+        $response = $remote->hlr($this->enforceCountryCode($items));
 
         // Parse the details into the correct class
         if (!is_array($items)) {
@@ -35,6 +35,13 @@ class HlrLookup
         return $parsedResult;
     }
 
+    protected function enforceCountryCode($number)
+    {
+        $number = (int)$number;
+        $number = (int)((int)substr($number, 0, 2) !== 44 ? "44" . $number : $number);
+
+        return $number;
+    }
 
     public function setApiKey($apiKey)
     {
